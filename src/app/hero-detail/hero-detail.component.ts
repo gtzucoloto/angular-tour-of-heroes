@@ -22,14 +22,19 @@ export class HeroDetailComponent implements OnInit {
     this.getHero();
   }
   
+  goBack(): void {
+    this.location.back();
+  }
+
   getHero(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     this.heroService.getHero(id)
       .subscribe(hero => this.hero = hero);
   }
 
-  goBack(): void {
-    this.location.back();
+  save(): void {
+    this.heroService.updateHero(this.hero)
+      .subscribe(() => this.goBack());
   }
 
 }
